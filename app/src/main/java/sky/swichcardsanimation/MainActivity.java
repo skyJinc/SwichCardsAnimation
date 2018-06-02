@@ -12,6 +12,8 @@ import android.widget.Toast;
 
 
 import sky.library.SkySwitchView;
+import sky.library.SkyTransformer;
+import sky.library.animation.DefaultCommonTransformer;
 import sky.library.animation.DefaultTransformerToBack;
 import sky.library.animation.DefaultTransformerToFront;
 import sky.library.animation.DefaultZIndexTransformerCommon;
@@ -30,11 +32,18 @@ public class MainActivity extends AppCompatActivity {
         mCardView.setCardAnimationListener(new SkySwitchView.CardAnimationListener() {
             @Override
             public void onAnimationStart() {
+                View view = mCardView.card(1);
+                view.findViewById(R.id.frame_bottom).setVisibility(View.GONE);
+
                 Toast.makeText(MainActivity.this, "开始动画", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onAnimationEnd() {
+
+//                View view = mCardView.card(1);
+//                view.findViewById(R.id.frame_bottom).setVisibility(View.VISIBLE);
+
                 Toast.makeText(MainActivity.this, "结束动画", Toast.LENGTH_SHORT).show();
             }
         });
@@ -65,7 +74,22 @@ public class MainActivity extends AppCompatActivity {
         mCardView.setAnimType(SkySwitchView.ANIM_TYPE_SWITCH);
         mCardView.setAnimInterpolator(new LinearInterpolator());
         mCardView.setTransformerToFront(new DefaultTransformerToFront());
-        mCardView.setTransformerToBack(new DefaultTransformerToBack());
+        mCardView.setTransformerToBack(new DefaultTransformerToBack() {
+            @Override
+            public void transformAnimation(View view, float fraction, int cardWidth, int cardHeight, int fromPosition, int toPosition) {
+                super.transformAnimation(view, fraction, cardWidth, cardHeight, fromPosition, toPosition);
+
+                if (fromPosition == 0) {
+
+                    View bottomView = mCardView.card(fromPosition);
+                    if (fraction > 0.5) {
+                        bottomView.findViewById(R.id.frame_bottom).setVisibility(View.VISIBLE);
+                        bottomView.findViewById(R.id.frame_bottom).setAlpha(fraction);
+                    }
+
+                }
+            }
+        });
         mCardView.setZIndexTransformerToBack(new DefaultZIndexTransformerCommon());
     }
 
@@ -96,6 +120,13 @@ public class MainActivity extends AppCompatActivity {
                 convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout
                         .item_card, parent, false);
             }
+
+            convertView.findViewById(R.id.frame_bottom).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mCardView.bringCardToFront(1);
+                }
+            });
 
             TextView textView = convertView.findViewById(R.id.tv_content);
             switch (position) {

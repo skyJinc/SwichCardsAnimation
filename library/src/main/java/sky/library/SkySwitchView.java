@@ -148,20 +148,16 @@ public class SkySwitchView extends ViewGroup {
         mAnimationHelper.bringCardToFront(card);
     }
 
-    /**
-     * bring the specific position card to front
-     *
-     * @param position position
-     */
+
     public void bringCardToFront(int position) {
         mAnimationHelper.bringCardToFront(position);
     }
 
-    /**
-     * set view adapter
-     *
-     * @param adapter adapter
-     */
+    public View card(int posiion) {
+        return mAnimationHelper.getItem(posiion).view;
+    }
+
+
     public void setAdapter(BaseAdapter adapter) {
         this.mAdapter = adapter;
         mAdapter.registerDataSetObserver(new DataSetObserver() {
@@ -230,12 +226,13 @@ public class SkySwitchView extends ViewGroup {
         return mAnimationHelper.isAnimating();
     }
 
-    public void setCardAnimationListener(CardAnimationListener cardAnimationListener){
+    public void setCardAnimationListener(CardAnimationListener cardAnimationListener) {
         mAnimationHelper.setCardAnimationListener(cardAnimationListener);
     }
 
-    public static interface CardAnimationListener{
+    public static interface CardAnimationListener {
         void onAnimationStart();
+
         void onAnimationEnd();
     }
 }

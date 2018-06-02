@@ -473,6 +473,10 @@ class SkyAnimationHelper implements Animator.AnimatorListener,
         bringCardToFront(position);
     }
 
+    SkyItem getItem(int position) {
+        return mCards.get(position);
+    }
+
     void bringCardToFront(int position) {
         if (position >= 0 && position != mPositionToFront && !mIsAnim && !mIsAddRemoveAnim) {
             mPositionToFront = position;
