@@ -3,7 +3,7 @@
 卡片切换动画
 
 ## 截屏
-![](./screenshot/anianimation.gif)
+![](./screenshot/animation.gif)
 
 ## 参数
 - animType : 动效展示类型
