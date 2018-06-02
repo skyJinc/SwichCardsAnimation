@@ -22,8 +22,8 @@
         android:id="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        SkySwitchView:animDuration="500"
-        SkySwitchView:cardRatio="1"/>
+        app:animDuration="500"
+        app:cardRatio="1"/>
 
 ```
 ### 设置Adapter
