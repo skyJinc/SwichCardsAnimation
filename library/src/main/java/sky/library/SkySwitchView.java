@@ -132,12 +132,12 @@ public class SkySwitchView extends ViewGroup {
         ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(mCardWidth,
                 mCardHeight);
         view.setLayoutParams(layoutParams);
-        view.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                bringCardToFront(1);
-            }
-        });
+//        view.setOnClickListener(new OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                bringCardToFront(1);
+//            }
+//        });
         return view;
     }
 
