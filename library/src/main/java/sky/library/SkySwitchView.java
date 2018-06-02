@@ -205,11 +205,11 @@ public class SkySwitchView extends ViewGroup {
         mAnimationHelper.setAnimType(animType);
     }
 
-    void setTransformerAnimAdd(SkyTransformer transformerAnimAdd) {
+    public void setTransformerAnimAdd(SkyTransformer transformerAnimAdd) {
         mAnimationHelper.setTransformerAnimAdd(transformerAnimAdd);
     }
 
-    void setTransformerAnimRemove(SkyTransformer transformerAnimRemove) {
+    public void setTransformerAnimRemove(SkyTransformer transformerAnimRemove) {
         mAnimationHelper.setTransformerAnimRemove(transformerAnimRemove);
     }
 

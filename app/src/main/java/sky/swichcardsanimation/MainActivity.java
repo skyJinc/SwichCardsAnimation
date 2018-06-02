@@ -14,6 +14,7 @@ import android.widget.Toast;
 import sky.library.SkySwitchView;
 import sky.library.SkyTransformer;
 import sky.library.animation.DefaultCommonTransformer;
+import sky.library.animation.DefaultTransformerAdd;
 import sky.library.animation.DefaultTransformerToBack;
 import sky.library.animation.DefaultTransformerToFront;
 import sky.library.animation.DefaultZIndexTransformerCommon;
@@ -32,18 +33,13 @@ public class MainActivity extends AppCompatActivity {
         mCardView.setCardAnimationListener(new SkySwitchView.CardAnimationListener() {
             @Override
             public void onAnimationStart() {
-                View view = mCardView.card(1);
-                view.findViewById(R.id.frame_bottom).setVisibility(View.GONE);
+
 
                 Toast.makeText(MainActivity.this, "开始动画", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onAnimationEnd() {
-
-//                View view = mCardView.card(1);
-//                view.findViewById(R.id.frame_bottom).setVisibility(View.VISIBLE);
-
                 Toast.makeText(MainActivity.this, "结束动画", Toast.LENGTH_SHORT).show();
             }
         });
@@ -74,23 +70,25 @@ public class MainActivity extends AppCompatActivity {
         mCardView.setAnimType(SkySwitchView.ANIM_TYPE_SWITCH);
         mCardView.setAnimInterpolator(new LinearInterpolator());
         mCardView.setTransformerToFront(new DefaultTransformerToFront());
+        mCardView.setZIndexTransformerToBack(new DefaultZIndexTransformerCommon());
         mCardView.setTransformerToBack(new DefaultTransformerToBack() {
             @Override
             public void transformAnimation(View view, float fraction, int cardWidth, int cardHeight, int fromPosition, int toPosition) {
                 super.transformAnimation(view, fraction, cardWidth, cardHeight, fromPosition, toPosition);
-
                 if (fromPosition == 0) {
 
-                    View bottomView = mCardView.card(fromPosition);
-                    if (fraction > 0.5) {
-                        bottomView.findViewById(R.id.frame_bottom).setVisibility(View.VISIBLE);
-                        bottomView.findViewById(R.id.frame_bottom).setAlpha(fraction);
-                    }
+                    View toView = mCardView.card(toPosition);
+                    toView.findViewById(R.id.frame_bottom).setVisibility(View.GONE);
 
+                    View fromView = view.findViewById(R.id.frame_bottom);
+                    if (fraction > 0.5) {
+                        fromView.setVisibility(View.VISIBLE);
+                        fromView.setAlpha(fraction);
+                    }
                 }
             }
         });
-        mCardView.setZIndexTransformerToBack(new DefaultZIndexTransformerCommon());
+        mCardView.setTransformerCommon(new DefaultCommonTransformer());
     }
 
 
@@ -135,6 +133,7 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case 1:
                     textView.setText("第二页");
+                    convertView.findViewById(R.id.frame_bottom).setVisibility(View.VISIBLE);
                     break;
             }
             return convertView;
