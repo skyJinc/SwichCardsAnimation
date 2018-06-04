@@ -1,6 +1,8 @@
 package sky.swichcardsanimation;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -54,6 +56,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initButton() {
+        findViewById(R.id.go).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, OneActivity.class);
+                startActivity(intent);
+            }
+        });
         findViewById(R.id.next).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,6 +75,15 @@ public class MainActivity extends AppCompatActivity {
                 if (mCardView.isAnimating()) {
                     return;
                 }
+                Fragment fragment = MainActivity.this.getSupportFragmentManager().findFragmentByTag("blankFragment");
+                if (fragment != null) {
+                    MainActivity.this.getSupportFragmentManager().beginTransaction().remove(fragment).commitAllowingStateLoss();
+                }
+                fragment = MainActivity.this.getSupportFragmentManager().findFragmentByTag("hotelFragment");
+                if (fragment != null) {
+                    MainActivity.this.getSupportFragmentManager().beginTransaction().remove(fragment).commitAllowingStateLoss();
+                }
+
                 mCardView.setAdapter(mAdapter1);
             }
         });
@@ -110,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
                     }
 
 
-                    if(fraction == 1.0f){
+                    if (fraction == 1.0f) {
                         view.invalidate();
                     }
                 }
@@ -220,6 +238,8 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             if (convertView == null) {
+
+
                 switch (position) {
                     case 0:
                         convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_card, parent, false);
@@ -228,7 +248,6 @@ public class MainActivity extends AppCompatActivity {
                         convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_card_one, parent, false);
                         break;
                 }
-
             }
 
             convertView.findViewById(R.id.frame_bottom).setOnClickListener(new View.OnClickListener() {

@@ -14,7 +14,7 @@
         android:background="@drawable/shadow_home">
 
         <fragment
-            android:tag="sky.swichcardsanimation.HotelFragment"
+            android:tag="hotelFragment"
             android:name="sky.swichcardsanimation.HotelFragment"
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_hotel"/>

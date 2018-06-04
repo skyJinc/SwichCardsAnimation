@@ -4,8 +4,11 @@
 
 我们可以内容 使用fragment 订制宽高并且 控件可根据内容调整高度的例子
 
+例子难点是 两个不相等高度的内容 切换动画 该如何执行 
+
 ## 截屏
 ![](./screenshot/animation.gif)
+![](./screenshot/animation2.gif)
 
 ## 参数
 - animType : 动效展示类型

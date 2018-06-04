@@ -17,7 +17,7 @@
             android:name="sky.swichcardsanimation.BlankFragment"
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_ticket"
-            android:tag="sky.swichcardsanimation.BlankFragment"/>
+            android:tag="blankFragment"/>
 
         <FrameLayout
             android:id="@+id/frame_bottom"
