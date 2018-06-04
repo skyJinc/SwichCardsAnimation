@@ -12,17 +12,27 @@ import sky.library.R;
 public class DefaultTransformerToBack implements SkyTransformer {
     @Override
     public void transformAnimation(View view, float fraction, int cardWidth, int cardHeight,
-                                   int fromPosition, int toPosition) {
+                                   int fromPosition, int toPosition, View toPositionView) {
         float scale;
         int height = view.getResources().getDimensionPixelOffset(R.dimen.card_bottom_height);
 
-        if(fromPosition == 0){
+        if (fromPosition == 0) {
             scale = (1 - 0.11f * fraction);
 
             view.setScaleX(scale);
             view.setScaleY(scale);
 
-            view.setTranslationY(height * fraction);
+            int viewHeight = toPositionView.getHeight() - view.getHeight();
+
+            if (viewHeight > 0) { // 比当前的大
+                height += viewHeight;
+                view.setTranslationY(height * fraction);
+            } else if (viewHeight < 0) { //比当前的小
+                viewHeight += height;
+                view.setTranslationY(viewHeight * fraction);
+            }else { //相等
+                view.setTranslationY(height * fraction);
+            }
         }
     }
 

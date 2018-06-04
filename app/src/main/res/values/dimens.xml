@@ -1,0 +1,11 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+
+    <dimen name="item_hotel">327dp</dimen>
+    <dimen name="item_ticket">527dp</dimen>
+    <dimen name="item_bottom">75dp</dimen>
+
+    <dimen name="ticket_max">600dp</dimen>
+    <dimen name="hotel_max">400dp</dimen>
+
+</resources>

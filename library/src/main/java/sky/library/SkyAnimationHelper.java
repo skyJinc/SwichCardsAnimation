@@ -106,7 +106,7 @@ class SkyAnimationHelper implements Animator.AnimatorListener,
 
     private void doAnimationBackToFront(float fraction, float fractionInterpolated) {
         mTransformerToFront.transformAnimation(mCardToFront.view,
-                fraction, mCardWidth, mCardHeight, mPositionToFront, 0);
+                fraction, mCardWidth, mCardHeight, mPositionToFront, 0, mCards.get(mPositionToBack).view);
         if (mAnimInterpolator != null) {
             mTransformerToFront.transformInterpolatedAnimation(mCardToFront.view,
                     fractionInterpolated, mCardWidth, mCardHeight, mPositionToFront, 0);
@@ -121,7 +121,7 @@ class SkyAnimationHelper implements Animator.AnimatorListener,
             return;
         }
         mTransformerToBack.transformAnimation(mCardToBack.view, fraction, mCardWidth,
-                mCardHeight, 0, mPositionToBack);
+                mCardHeight, 0, mPositionToBack, mCards.get(mPositionToFront).view);
         if (mAnimInterpolator != null) {
             mTransformerToBack.transformInterpolatedAnimation(mCardToBack.view,
                     fractionInterpolated, mCardWidth, mCardHeight, 0, mPositionToBack);
@@ -151,7 +151,7 @@ class SkyAnimationHelper implements Animator.AnimatorListener,
     private void doAnimationCommonView(View view, float fraction, float fractionInterpolated, int
             fromPosition, int toPosition) {
         mTransformerCommon.transformAnimation(view, fraction, mCardWidth,
-                mCardHeight, fromPosition, toPosition);
+                mCardHeight, fromPosition, toPosition, mCards.get(toPosition).view);
         if (mAnimInterpolator != null) {
             mTransformerCommon.transformInterpolatedAnimation(view, fractionInterpolated, mCardWidth,
                     mCardHeight, fromPosition, toPosition);
@@ -318,7 +318,7 @@ class SkyAnimationHelper implements Animator.AnimatorListener,
             public void onAnimationUpdate(ValueAnimator animation) {
                 float fraction = (float) animation.getAnimatedValue();
                 mTransformerAnimRemove.transformAnimation(view, fraction, mCardWidth, mCardHeight,
-                        position, position);
+                        position, position, mCards.get(position).view);
                 if (mAnimAddRemoveInterpolator != null) {
                     mTransformerAnimRemove.transformInterpolatedAnimation(view,
                             mAnimAddRemoveInterpolator.getInterpolation(fraction),
@@ -391,7 +391,7 @@ class SkyAnimationHelper implements Animator.AnimatorListener,
             public void onAnimationUpdate(ValueAnimator animation) {
                 float fraction = (float) animation.getAnimatedValue();
                 mTransformerAnimAdd.transformAnimation(view, fraction, mCardWidth, mCardHeight,
-                        position, position);
+                        position, position, mCards.get(position).view);
                 if (mAnimAddRemoveInterpolator != null) {
                     mTransformerAnimAdd.transformInterpolatedAnimation(view,
                             mAnimAddRemoveInterpolator.getInterpolation(fraction),
@@ -446,7 +446,7 @@ class SkyAnimationHelper implements Animator.AnimatorListener,
                 mCardView.addCardView(cardItem, i);
                 mZIndexTransformerCommon.transformAnimation(cardItem, mCurrentFraction, mCardWidth, mCardHeight,
                         i, i);
-                mTransformerCommon.transformAnimation(child, mCurrentFraction, mCardWidth, mCardHeight, i, i);
+                mTransformerCommon.transformAnimation(child, mCurrentFraction, mCardWidth, mCardHeight, i, i, mCards.get(i).view);
             }
         }
         for (int i = mCardCount - 1; i >= 0; i--) {

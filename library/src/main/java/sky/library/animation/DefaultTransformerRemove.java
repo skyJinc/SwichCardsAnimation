@@ -10,7 +10,7 @@ import sky.library.SkyTransformer;
  */
 public class DefaultTransformerRemove implements SkyTransformer {
     @Override
-    public void transformAnimation(View view, float fraction, int cardWidth, int cardHeight, int fromPosition, int toPosition) {
+    public void transformAnimation(View view, float fraction, int cardWidth, int cardHeight, int fromPosition, int toPosition,View toPositionView) {
         view.setTranslationY(cardHeight * fraction);
         view.setAlpha(1 - fraction);
     }

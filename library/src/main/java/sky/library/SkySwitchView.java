@@ -106,13 +106,12 @@ public class SkySwitchView extends ViewGroup {
         int childCount = getChildCount();
         int childWidth, childHeight;
         int childLeft, childTop, childRight, childBottom;
-        int width = getWidth(), height = getHeight();
         for (int i = 0; i < childCount; i++) {
             View childView = getChildAt(i);
             childWidth = childView.getMeasuredWidth();
             childHeight = childView.getMeasuredHeight();
-            childLeft = (width - childWidth) / 2;
-            childTop = (height - childHeight) / 2;
+            childLeft = 0;
+            childTop = 0;
             childRight = childLeft + childWidth;
             childBottom = childTop + childHeight;
             childView.layout(childLeft, childTop, childRight, childBottom);
