@@ -11,7 +11,7 @@ import sky.library.R;
  */
 public class DefaultCommonTransformer implements SkyTransformer {
     @Override
-    public void transformAnimation(View view, float fraction, int cardWidth, int cardHeight, int fromPosition, int toPosition,View toPositionView) {
+    public void transformAnimation(View view, float fraction, int cardWidth, int cardHeight, int fromPosition, int toPosition) {
         float scale;
         int height = view.getResources().getDimensionPixelOffset(R.dimen.card_bottom_height);
 

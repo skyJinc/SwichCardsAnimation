@@ -108,9 +108,11 @@ public class MainActivity extends AppCompatActivity {
         mCardView.setClickable(true);
         mCardView.setAnimType(SkySwitchView.ANIM_TYPE_SWITCH);
         mCardView.setAnimInterpolator(new LinearInterpolator());
+        mCardView.setCommonSwitchTransformer(new DefaultCommonTransformer());
+        mCardView.setZIndexTransformerToBack(new DefaultZIndexTransformerCommon());
         mCardView.setTransformerToFront(new SkyTransformer() {
             @Override
-            public void transformAnimation(View view, float fraction, int cardWidth, int cardHeight, int fromPosition, int toPosition, View toPositionView) {
+            public void transformAnimation(View view, float fraction, int cardWidth, int cardHeight, int fromPosition, int toPosition) {
                 float scale;
 
                 if (fromPosition == 1) {
@@ -148,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
         });
         mCardView.setTransformerAnimAdd(new SkyTransformer() {
             @Override
-            public void transformAnimation(View view, float fraction, int cardWidth, int cardHeight, int fromPosition, int toPosition, View toPositionView) {
+            public void transformAnimation(View view, float fraction, int cardWidth, int cardHeight, int fromPosition, int toPosition) {
                 float scale;
 
                 if (fromPosition == 0) {
@@ -179,7 +181,7 @@ public class MainActivity extends AppCompatActivity {
         });
         mCardView.setTransformerToBack(new SkyTransformer() {
             @Override
-            public void transformAnimation(View view, float fraction, int cardWidth, int cardHeight, int fromPosition, int toPosition, View toPositionView) {
+            public void transformAnimation(View view, float fraction, int cardWidth, int cardHeight, int fromPosition, int toPosition) {
                 float scale;
                 if (fromPosition == 0) {
                     scale = (1 - 0.11f * fraction);
@@ -210,8 +212,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        mCardView.setCommonSwitchTransformer(new DefaultCommonTransformer());
-        mCardView.setZIndexTransformerToBack(new DefaultZIndexTransformerCommon());
+
     }
 
 
