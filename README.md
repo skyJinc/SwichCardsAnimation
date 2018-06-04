@@ -2,6 +2,8 @@
 
 卡片切换动画
 
+我们可以内容 使用fragment 订制宽高并且 控件可根据内容调整高度的例子
+
 ## 截屏
 ![](./screenshot/animation.gif)
 
