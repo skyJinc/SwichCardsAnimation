@@ -474,6 +474,9 @@ class SkyAnimationHelper implements Animator.AnimatorListener,
     }
 
     SkyItem getItem(int position) {
+        if(mCards == null){
+            return null;
+        }
         return mCards.get(position);
     }
 

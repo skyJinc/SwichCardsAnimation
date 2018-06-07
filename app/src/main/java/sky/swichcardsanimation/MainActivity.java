@@ -100,54 +100,16 @@ public class MainActivity extends AppCompatActivity {
         final float maxRatioTicket = 1.55f;
 
         final int selectTicket = (ticket - hotel) + bottomPadding;
-        final int selectHotel = (ticket - hotel) - ticketPadding;
+        final int selectHotel = (ticket - hotel) - bottomPadding;
 
         selectIndexTicket = 0;
-        mCardView.setCardSizeRatio(maxRatioTicket);
+        mCardView.setCardSizeHeight(maxTicket);
 
         mCardView.setClickable(true);
         mCardView.setAnimType(SkySwitchView.ANIM_TYPE_SWITCH);
         mCardView.setAnimInterpolator(new LinearInterpolator());
         mCardView.setCommonSwitchTransformer(new DefaultCommonTransformer());
         mCardView.setZIndexTransformerToBack(new DefaultZIndexTransformerCommon());
-        mCardView.setTransformerToFront(new SkyTransformer() {
-            @Override
-            public void transformAnimation(View view, float fraction, int cardWidth, int cardHeight, int fromPosition, int toPosition) {
-                float scale;
-
-                if (fromPosition == 1) {
-                    scale = (0.89f + 0.11f * fraction);
-
-                    view.setScaleX(scale);
-                    view.setScaleY(scale);
-
-                    if (selectIndexTicket == 0) {
-                        view.setTranslationY((selectTicket * (1 - fraction)));
-                        mCardView.getLayoutParams().height = (int) (maxHotel + (maxTicket - maxHotel) * (1 - fraction));
-                    } else {
-                        view.setTranslationY(-selectHotel * (1 - fraction));
-                        mCardView.getLayoutParams().height = (int) (maxHotel + (maxTicket - maxHotel) * fraction);
-                    }
-
-
-                    if (fraction == 1.0f) {
-                        view.invalidate();
-                    }
-                }
-
-                if (fromPosition == 0) {
-                    View fromView = view.findViewById(R.id.frame_bottom);
-                    fromView.setVisibility(View.GONE);
-                }
-
-
-            }
-
-            @Override
-            public void transformInterpolatedAnimation(View view, float fraction, int cardWidth, int cardHeight, int fromPosition, int toPosition) {
-
-            }
-        });
         mCardView.setTransformerAnimAdd(new SkyTransformer() {
             @Override
             public void transformAnimation(View view, float fraction, int cardWidth, int cardHeight, int fromPosition, int toPosition) {
@@ -179,6 +141,47 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        mCardView.setTransformerToFront(new SkyTransformer() {
+            @Override
+            public void transformAnimation(View view, float fraction, int cardWidth, int cardHeight, int fromPosition, int toPosition) {
+                float scale;
+
+                if (fromPosition == 1) {
+                    scale = (0.89f + 0.11f * fraction);
+
+                    view.setScaleX(scale);
+                    view.setScaleY(scale);
+
+                    if (selectIndexTicket == 0) {
+                        view.setTranslationY((selectTicket * (1 - fraction)));
+                        mCardView.getLayoutParams().height = (int) (maxHotel + (maxTicket - maxHotel) * (1 - fraction));
+                    } else {
+                        float scaleHeight = (ticket * 0.09f) / 2;
+
+                        view.setTranslationY(-(selectHotel - scaleHeight) * (1 - fraction));
+                        mCardView.getLayoutParams().height = (int) (maxHotel + (maxTicket - maxHotel) * fraction);
+                    }
+
+
+                    if (fraction == 1.0f) {
+                        view.invalidate();
+                    }
+                }
+
+                if (fromPosition == 0) {
+                    View fromView = view.findViewById(R.id.frame_bottom);
+                    fromView.setVisibility(View.GONE);
+                }
+
+
+            }
+
+            @Override
+            public void transformInterpolatedAnimation(View view, float fraction, int cardWidth, int cardHeight, int fromPosition, int toPosition) {
+
+            }
+        });
         mCardView.setTransformerToBack(new SkyTransformer() {
             @Override
             public void transformAnimation(View view, float fraction, int cardWidth, int cardHeight, int fromPosition, int toPosition) {
@@ -191,7 +194,10 @@ public class MainActivity extends AppCompatActivity {
 
                     //缩小
                     if (selectIndexTicket == 0) {
-                        view.setTranslationY(-selectHotel * fraction);
+
+                        float scaleHeight = (ticket * 0.09f) / 2;
+
+                        view.setTranslationY(-(selectHotel - scaleHeight) * fraction);
                     } else {
                         view.setTranslationY(selectTicket * fraction);
                     }

@@ -95,8 +95,32 @@ public class SkySwitchView extends ViewGroup {
     }
 
     private void setCardSize(boolean resetAdapter) {
-        mCardWidth = getMeasuredWidth();
-        mCardHeight = (int) (mCardWidth * mCardRatio);
+        mCardWidth = mCardWidth == 0 ? getMeasuredWidth() : mCardWidth;
+        mCardHeight = mCardHeight == 0 ? (int) (mCardWidth * mCardRatio) : mCardHeight;
+        mAnimationHelper.setCardSize(mCardWidth, mCardHeight);
+        mAnimationHelper.initAdapterView(mAdapter, resetAdapter);
+    }
+
+    public void updatePositionCardSize(int cardWidth, int cardHeight, int position) {
+        this.mCardWidth = cardWidth;
+        this.mCardHeight = cardHeight;
+        if (this.card(position) != null) {
+            this.card(position).getLayoutParams().width = mCardWidth;
+            this.card(position).getLayoutParams().height = mCardHeight;
+        }
+    }
+
+    public void setCardSizeWidth(int cardWidth) {
+        setCardSize(cardWidth, getMeasuredHeight(), true);
+    }
+
+    public void setCardSizeHeight(int cardHeight) {
+        setCardSize(getMeasuredWidth(), cardHeight, true);
+    }
+
+    public void setCardSize(int cardWidth, int cardHeight, boolean resetAdapter) {
+        mCardWidth = cardWidth;
+        mCardHeight = cardHeight;
         mAnimationHelper.setCardSize(mCardWidth, mCardHeight);
         mAnimationHelper.initAdapterView(mAdapter, resetAdapter);
     }
@@ -153,6 +177,10 @@ public class SkySwitchView extends ViewGroup {
     }
 
     public View card(int posiion) {
+        if (mAnimationHelper.getItem(posiion) == null) {
+            return null;
+        }
+
         return mAnimationHelper.getItem(posiion).view;
     }
 

@@ -3,7 +3,6 @@
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             android:background="@drawable/shape_card"
              tools:context=".BlankFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -12,5 +11,11 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:text="你好啊啊啊啊啊啊"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center|top"
+        android:text="@string/hello_blank_fragment"/>
 
 </FrameLayout>
