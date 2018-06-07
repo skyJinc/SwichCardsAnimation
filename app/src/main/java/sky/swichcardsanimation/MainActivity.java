@@ -100,16 +100,15 @@ public class MainActivity extends AppCompatActivity {
         final float maxRatioTicket = 1.55f;
 
         final int selectTicket = (ticket - hotel) + bottomPadding;
-        final int selectHotel = (ticket - hotel) - bottomPadding;
+        final int selectHotel = (ticket - hotel) - ticketPadding;
 
         selectIndexTicket = 0;
         mCardView.setCardSizeHeight(maxTicket);
+//        mCardView.setCardSizeRatio(maxRatioTicket);
 
         mCardView.setClickable(true);
         mCardView.setAnimType(SkySwitchView.ANIM_TYPE_SWITCH);
         mCardView.setAnimInterpolator(new LinearInterpolator());
-        mCardView.setCommonSwitchTransformer(new DefaultCommonTransformer());
-        mCardView.setZIndexTransformerToBack(new DefaultZIndexTransformerCommon());
         mCardView.setTransformerAnimAdd(new SkyTransformer() {
             @Override
             public void transformAnimation(View view, float fraction, int cardWidth, int cardHeight, int fromPosition, int toPosition) {
@@ -141,7 +140,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
         mCardView.setTransformerToFront(new SkyTransformer() {
             @Override
             public void transformAnimation(View view, float fraction, int cardWidth, int cardHeight, int fromPosition, int toPosition) {
@@ -157,9 +155,7 @@ public class MainActivity extends AppCompatActivity {
                         view.setTranslationY((selectTicket * (1 - fraction)));
                         mCardView.getLayoutParams().height = (int) (maxHotel + (maxTicket - maxHotel) * (1 - fraction));
                     } else {
-                        float scaleHeight = (ticket * 0.09f) / 2;
-
-                        view.setTranslationY(-(selectHotel - scaleHeight) * (1 - fraction));
+                        view.setTranslationY(-selectHotel * (1 - fraction));
                         mCardView.getLayoutParams().height = (int) (maxHotel + (maxTicket - maxHotel) * fraction);
                     }
 
@@ -182,6 +178,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
         mCardView.setTransformerToBack(new SkyTransformer() {
             @Override
             public void transformAnimation(View view, float fraction, int cardWidth, int cardHeight, int fromPosition, int toPosition) {
@@ -194,10 +191,7 @@ public class MainActivity extends AppCompatActivity {
 
                     //缩小
                     if (selectIndexTicket == 0) {
-
-                        float scaleHeight = (ticket * 0.09f) / 2;
-
-                        view.setTranslationY(-(selectHotel - scaleHeight) * fraction);
+                        view.setTranslationY(-selectHotel * fraction);
                     } else {
                         view.setTranslationY(selectTicket * fraction);
                     }
@@ -218,7 +212,8 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
+        mCardView.setCommonSwitchTransformer(new DefaultCommonTransformer());
+        mCardView.setZIndexTransformerToBack(new DefaultZIndexTransformerCommon());
     }
 
 
